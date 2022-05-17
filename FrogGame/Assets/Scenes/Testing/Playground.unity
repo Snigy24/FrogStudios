@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2161.3838, g: 2265.3965, b: 3288.5664, a: 1}
+  m_IndirectSpecularColor: {r: 2161.3838, g: 2265.3965, b: 3288.543, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -490,6 +490,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &953956723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 953956724}
+  m_Layer: 0
+  m_Name: GroundChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &953956724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953956723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1741269510}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1623012018
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,8 +718,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 5
-  <MoveSpeed>k__BackingField: 4
-  <JumpForce>k__BackingField: 200
 --- !u!65 &1741269513
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -718,6 +747,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 114
   m_CollisionDetection: 0
+--- !u!114 &1741269515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37383143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8a1e83764325441b73269652d961ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MoveSpeed>k__BackingField: 5
+  <JumpForce>k__BackingField: 500
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0

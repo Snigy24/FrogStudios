@@ -1,15 +1,17 @@
+using System;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour, IMoveable, IHealth
+[RequireComponent(typeof(IMoveable))]
+public abstract class Character : MonoBehaviour, IHealth
 {
     public abstract int Health { get; protected set; }
-    public abstract float MoveSpeed { get; protected set; }
-    public abstract float JumpForce { get; protected set; }
 
+    protected IMoveable charPhysics;
 
-    public abstract void Move2D(float direction);
-
-    public abstract void Jump();
+    protected void Awake()
+    {
+        charPhysics = GetComponent<IMoveable>();
+    }
 
     public abstract void Heal(int amount);
 

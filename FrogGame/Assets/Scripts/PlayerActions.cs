@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-[RequireComponent(typeof(PlayerCharacter))]
 public class PlayerActions : MonoBehaviour
 {
     private PlayerInputActions playerInputs;
@@ -15,14 +11,12 @@ public class PlayerActions : MonoBehaviour
     private InputAction jump;
     private bool jumpInput;
 
-    private IMoveable moveable;
-
-
+    public event Action<float> OnPlayerMoveInput;
+    public event Action OnPlayerJumpInput;
 
     private void Awake()
     {
         playerInputs = new PlayerInputActions();
-        moveable = GetComponent<IMoveable>();
     }
     
     private void Start()
@@ -50,7 +44,7 @@ public class PlayerActions : MonoBehaviour
         movementInput = move.ReadValue<float>();
         jumpInput = jump.ReadValue<float>() > 0f;
         if (movementInput == 0f && !jumpInput) return;
-        if (jumpInput) moveable.Jump();
-        moveable.Move2D(movementInput);
+        if (jumpInput) OnPlayerJumpInput?.Invoke();
+        if (movementInput != 0f) OnPlayerMoveInput?.Invoke(movementInput);
     }
 }
