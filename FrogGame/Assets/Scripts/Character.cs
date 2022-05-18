@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(IMoveable))]
+[RequireComponent(typeof(IMovable))]
 public abstract class Character : MonoBehaviour, IHealth
 {
     public abstract int Health { get; protected set; }
 
-    protected IMoveable charPhysics;
+    protected IMovable charPhysics;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
-        charPhysics = GetComponent<IMoveable>();
+        charPhysics = GetComponent<IMovable>();
     }
 
     public abstract void Heal(int amount);

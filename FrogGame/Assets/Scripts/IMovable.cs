@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IMoveable
+public interface IMovable
 {
     public float MoveSpeed { get; }
     public float JumpForce { get; }

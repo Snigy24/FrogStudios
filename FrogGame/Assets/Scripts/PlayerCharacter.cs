@@ -9,7 +9,7 @@ public class PlayerCharacter : Character
 
     private PlayerActions playerActions;
 
-    protected void Awake()
+    protected override void Awake()
     {
         playerActions = GetComponent<PlayerActions>();
         

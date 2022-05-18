@@ -1,52 +1,66 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CharacterPhysics : MonoBehaviour, IMoveable
+public class CharacterPhysics : MonoBehaviour, IMovable
 {
-    [field: SerializeField] public float MoveSpeed { get; private set; }
-    [field: SerializeField] public float JumpForce { get; private set; }
-    public bool IsGrounded { get; protected set; }
-    
-    private Rigidbody rb;
-    
-    private float gravityFallMultiplier = 2.5f;
-    private float gravityJumpMultiplier = 2f;
-    
-    private bool CanJump => jumpCooldown == 0f && rb.velocity.y == 0f && !IsGrounded;
+    [field: SerializeField, Range(1f, 10f)] 
+    public float MoveSpeed { get; private set; } = 5f;
 
+    [field: SerializeField, Range(1f, 10f)]
+    public float JumpForce { get; private set; } = 5f;
+    
     private float jumpCooldown = 0f;
     private float jumpWaitTime = 0.1f;
     
-    protected void Awake()
+    [SerializeField] private GroundChecker groundChecker;
+    public bool IsGrounded => groundChecker.IsGrounded;
+
+    public bool CanJump => IsGrounded && jumpCooldown <= 0f;
+    
+    private Rigidbody rb;
+
+    private GravityManager gravity;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
-    
-    void Update()
+
+    private void Start()
+    {
+        gravity = GravityManager.Instance;
+    }
+
+    private void Update()
     {
         jumpCooldown -= Time.deltaTime;
         jumpCooldown = Mathf.Clamp(jumpCooldown, 0f, jumpWaitTime);
-        
+    }
+
+    private void FixedUpdate()
+    {
         UpdatePhysics();
     }
-    
+
     private void UpdatePhysics()
     {
-        if (rb.velocity.y < 0)
+        switch (rb.velocity.y)
         {
-            rb.velocity += Vector3.up * (Physics.gravity.y * (gravityFallMultiplier) * Time.deltaTime);
-        }
-        else if (rb.velocity.y > 0)
-        {
-            rb.velocity += Vector3.up * (Physics.gravity.y * (gravityJumpMultiplier) * Time.deltaTime);
+            case < 0:
+                rb.velocity += Vector3.up * (gravity.FallMultiplier * Time.deltaTime);
+                break;
+            case > 0:
+                rb.velocity += Vector3.up * (gravity.JumpMultiplier * Time.deltaTime);
+                break;
         }
     }
 
     public void Move2D(float direction)
     {
-        rb.velocity = new Vector3(0f, rb.velocity.y, direction * MoveSpeed);
+        rb.MovePosition(rb.position + Vector3.forward * (direction * MoveSpeed * Time.deltaTime));
     }
 
     public void Jump()
@@ -54,6 +68,6 @@ public class CharacterPhysics : MonoBehaviour, IMoveable
         if (!CanJump) return;
         jumpCooldown = jumpWaitTime;
         
-        rb.AddForce(Vector3.up * JumpForce);
+        rb.AddForce(Vector3.up * (JumpForce * 100f));
     }
 }
