@@ -11,7 +11,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Uriel_MAT
-    second: {fileID: 2100000, guid: 2f588e605bafe45438fc7f1b3705c7ec, type: 2}
+    second: {fileID: 2100000, guid: 79a92f7b47d2fd44ba4db2b6c09c4826, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
